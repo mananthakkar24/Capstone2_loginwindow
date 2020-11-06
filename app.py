@@ -5,6 +5,13 @@ import os
 import pandas as pd
 import flask
 
+import urllib.request
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
+response = urllib.request.urlopen('https://www.python.org')
+print(response.read().decode('utf-8'))
+
 app = Flask(__name__)
 
 app.config['TEMPLATES_AUTO_RELOAD'] = True
