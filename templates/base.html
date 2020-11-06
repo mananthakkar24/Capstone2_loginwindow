@@ -129,6 +129,51 @@
                     <input type="password" class="form-control" id="confirmpassword" name="confirm" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                   </div>
               </div>
+              <div class="form-group">
+                <label for="Address" class="text-dark col-form-label">Address:</label>
+                <input type="text" class="form-control" id="address" name="address" required>
+              </div>
+              <div class="form-group">
+                <label for="City" class="text-dark col-form-label">City:</label>
+                <input type="text" class="form-control" id="city" name="city" required>
+              </div>
+              <div class="form-group">
+                <label for="State" class="text-dark col-form-label">State:</label>
+                <input type="text" class="form-control" id="state" name="state" required>
+              </div>
+              <div class="form-group">
+                <label for="BodyTemperature" class="text-dark col-form-label">Body Temperature in F:</label>
+                <input type="number" class="form-control" id="bd" name="bd" required>
+              </div>
+              <div class="form-group">
+                <label for="RunnyNose" class="text-dark col-form-label">Runny Nose:</label>
+                <input type="radio" class="form-control" id="rn1" name="rn" value="1"> 
+                <label for="rn1" class="text-dark col-form-label">Yes</label>
+                <input type="radio" class="form-control" id="rn2" name="rn" value="0"> 
+                <label for="rn2" class="text-dark col-form-label">No</label>
+              </div>
+              <div class="form-group">
+                <label for="BodyAche" class="text-dark col-form-label">Body Ache:</label>
+                <input type="radio" class="form-control" id="bd1" name="bd" value="1"> 
+                <label for="bd1" class="text-dark col-form-label">Yes</label>
+                <input type="radio" class="form-control" id="bd2" name="bd" value="0"> 
+                <label for="bd2" class="text-dark col-form-label">No</label>
+              </div>
+              <div class="form-group">
+                <label for="DiificultyinBreathing" class="text-dark col-form-label">Difficulty in Breathing:</label>
+                <input type="radio" class="form-control" id="db1" name="db" value="1"> 
+                <label for="db1" class="text-dark col-form-label">Yes</label>
+                <input type="radio" class="form-control" id="db2" name="bd" value="0"> 
+                <label for="db2" class="text-dark col-form-label">No</label>
+              </div>
+              <div class="form-group">
+                <label for="DryCough" class="text-dark col-form-label">Dry Cough:</label>
+                <input type="radio" class="form-control" id="dc1" name="dc" value="1"> 
+                <label for="dc1" class="text-dark col-form-label">Yes</label>
+                <input type="radio" class="form-control" id="dc2" name="bd" value="0"> 
+                <label for="dc2" class="text-dark col-form-label">No</label>
+              </div>
+              
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Register</button>

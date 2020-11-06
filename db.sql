@@ -4,10 +4,20 @@
 --
 
 CREATE TABLE `testapi` (
-   `id` int(11) not null auto_increment,
+   `id` int not null auto_increment,
    `name` varchar(100),
-   `email` varchar(100),
-   `username` varchar(100) not null,
-   `password` varchar(100) not null,
-   PRIMARY KEY (`id`)
+   'age' int,
+   'phone' int, 
+   'username' varchar(100) not null,
+   'password' varchar(100) not null,
+   'Address' varchar(500) not null,
+   'City' varchar(100) not null,
+   'State' varchar (100) not null,
+   'BodyTemperature' float,
+   'RunnyNose' int,
+   'BodyAche' int,
+   'DifficultyinBreathing' int,
+   'DryCough' int, 
+   'InfectionProbab' float,
+   PRIMARY KEY (`phone`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4
