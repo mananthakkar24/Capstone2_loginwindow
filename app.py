@@ -1,9 +1,8 @@
-
-
 from flask import Flask, render_template, redirect, url_for, request
 from flask import session, abort, flash, jsonify
 import pymysql
 import os
+import pandas as pd
 import flask
 
 app = Flask(__name__)
@@ -21,7 +20,27 @@ def get_db():
 
 @app.route('/')
 def base():
-    return render_template('home.html')
+    file_location = "https://api.covid19india.org/csv/latest/state_wise.csv"
+    file_data = pd.read_csv(file_location)
+    a = file_data[0:1]
+    totalcount = a.iat[0,1]
+    recoveredcount = a.iat[0,2]
+    deathcount = a.iat[0,3]
+    activecount = a.iat[0,4]
+    lastupdate = a.iat[0,5]
+    output = file_data[['State','Confirmed','Recovered','Deaths']].groupby('State').sum()
+    output = output.drop(['Total'])
+    output = output.reset_index()
+    output = output.sort_values(by='Confirmed',ascending=False)
+    confirmed_val = output['Confirmed'].values.tolist()
+    state_name = output['State'].values.tolist()
+    recoverd_val = output['Recovered'].values.tolist()
+    death_val = output['Deaths'].values.tolist()
+    total = {'lastupdate':lastupdate,
+    'totalcount':totalcount,'recoveredcount':recoveredcount,
+    'activecount':activecount,'deathcount':deathcount,'state_name':state_name, 
+    'confirmed_val':confirmed_val, 'recovered_val':recoverd_val,'death_val':death_val}
+    return render_template('home.html',total=total)
 
 # SignUp
 @app.route('/signup/', methods=['GET', 'POST'])
@@ -120,9 +139,5 @@ def internal_error(error):
     return render_template('500.html'), 500
 
 
-
-'''
-                        APP RUNNER
-'''
 if __name__ == '__main__':
-    app.run()  # host='0.0.0.0', port=5000
+    app.run(debug=True)
