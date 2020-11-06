@@ -110,23 +110,23 @@
                 <form action="/signup/" method="POST">
                   <div class="form-group">
                     <label for="name" class="text-dark col-form-label">Name:</label>
-                    <input type="text" class="form-control" id="name" name="name">
+                    <input type="text" class="form-control" id="name" name="name" required>
                   </div>
                   <div class="form-group">
                     <label for="username" class="text-dark col-form-label">UserName:</label>
-                    <input type="text" class="form-control" id="username" name="username">
+                    <input type="text" class="form-control" id="username" name="username" required>
                   </div>
                   <div class="form-group">
                     <label for="email" class="text-dark col-form-label">Email:</label>
-                    <input type="text" class="form-control" id="email" name="email">
+                    <input type="email" class="form-control" id="email" name="email" required>
                   </div>
                   <div class="form-group">
                     <label for="password" class="text-dark col-form-label">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password">
+                    <input type="password" class="form-control" placeholder = "Min 8 char. (1 Caps, 1 Num & 1 Special char)" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                   </div>
                   <div class="form-group">
                     <label for="confirmpassword" class="text-dark col-form-label">Confirm Password:</label>
-                    <input type="password" class="form-control" id="confirmpassword" name="confirm">
+                    <input type="password" class="form-control" id="confirmpassword" name="confirm" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                   </div>
               </div>
               <div class="modal-footer">
