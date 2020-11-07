@@ -12,6 +12,16 @@ ssl._create_default_https_context = ssl._create_unverified_context
 response = urllib.request.urlopen('https://www.python.org')
 #print(response.read().decode('utf-8'))
 
+import pickle
+
+file = open('model.pkl', 'rb')
+clf = pickle.load(file)
+file.close()
+
+# Fever,BodyPain,Age,RunnyNose,DiffBreathing,DryCough
+#inputFeatures = [102, 1, 22, 1, -1, 1]
+#infProb = clf.predict_proba([inputFeatures])[0][1]
+
 app = Flask(__name__)
 
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -104,15 +114,21 @@ def login():
             password = request.form['password']
             db = get_db()
             c = db.cursor()
-            c.execute('SELECT id, name, phone, username, password from testApi WHERE username = %s and password = md5(%s)', (username, password))
+            c.execute('SELECT * from testApi WHERE username = %s and password = md5(%s)', (username, password))
             account = c.fetchone()
 
             if account is not None:
                 session['logged_in'] = True
                 session['id'] = account[0]
                 session['name'] = account[1]
-                session['phone'] = account[2]
-                session['username'] = account[3]
+                session['phone'] = account[3]
+                session['username'] = account[4]
+                
+                # Fever,BodyPain,Age,RunnyNose,DiffBreathing,DryCough
+                inputFeatures = [account[9], account[11], account[2], account[10], account[12], account[13]]
+                infProb = clf.predict_proba([inputFeatures])[0][1]
+
+                c.execute('INSERT INTO infectionProb VALUES(%s ,%s)' (account[0], infProb))
 
                 db.commit()
                 c.close()
@@ -137,6 +153,41 @@ def logout():
     session.pop('username', None)
     flash('Logged Out Successfully')
     return redirect(url_for('base'))
+
+# @app.route('/login/', methods=['GET', 'POST'])
+def infecProb():
+    if request.method == 'POST' and 'username' in request.form \
+            and 'password' in request.form:
+        try:
+            
+
+            db = get_db()
+            c = db.cursor()
+            c.execute('SELECT id, BodyTemperature, BodyAche, age, RunnyNose, DifficultyinBreathing, DryCough from testApi WHERE id = %s and password = md5(%s)', (username, password))
+            account = c.fetchone()
+
+            if account is not None:
+                session['logged_in'] = True
+                session['id'] = account[0]
+                session['name'] = account[1]
+                session['phone'] = account[2]
+                session['username'] = account[3]
+
+                db.commit()
+                c.close()
+                db.close()
+                flash('Logged In Successfully')
+                print(session)
+                return redirect(url_for('base'))
+            else:
+                flash('Invalid credentials. Please try again.')
+                return redirect(url_for('base'))
+        except Exception as e:
+            print(e)
+        flash('An error occured. Please try again.')
+        return redirect(url_for('base'))
+    else:
+        return redirect(url_for('base'))
 
 '''
 ERROR HANDLING
