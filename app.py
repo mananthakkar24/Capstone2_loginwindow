@@ -10,7 +10,7 @@ import ssl
 
 ssl._create_default_https_context = ssl._create_unverified_context
 response = urllib.request.urlopen('https://www.python.org')
-print(response.read().decode('utf-8'))
+#print(response.read().decode('utf-8'))
 
 app = Flask(__name__)
 
@@ -56,10 +56,19 @@ def signup():
         if 'email' in request.form \
                 and 'password' in request.form:
             name = request.form.get('name')
-            email = request.form.get('email')
+            age = request.form.get('age')
+            #email = request.form.get('email')
             username = request.form.get('username')
             password = request.form.get('password')
             confirmpassword = request.form.get('confirm')
+            phone = request.form.get('phone')
+            address = request.form.get('address')
+            state = request.form.get('state')
+            city = request.form.get('city')
+            bd = request.form.get('bd')
+            rn = request.form.get('rn')
+            dc = request.form.get('dc')
+
             db = get_db()
             c = db.cursor()
             c.execute('select email from testApi where email = %s', email)
@@ -69,7 +78,7 @@ def signup():
               return redirect(url_for('base'))
             else:
               if password == confirmpassword:
-                c.execute('insert into testApi (name, email, username, password ) values (%s, %s, %s, md5(%s))', (name, email, username, password ))
+                c.execute('insert into testApi (name,age,phone,username,password,Address,City,State,BodyTemperature) values (%s, %s, %s, md5(%s),%s,%s,%s)', (name, email, username, password,address,state,city ))
                 db.commit()
                 flash('Registered Successfully')
                 c.close()
@@ -129,7 +138,7 @@ def logout():
     return redirect(url_for('base'))
 
 '''
-                        ERROR HANDLING
+ERROR HANDLING
 '''
 @app.errorhandler(403)
 def access_forbidden(error):
