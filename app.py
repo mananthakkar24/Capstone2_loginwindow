@@ -62,23 +62,24 @@ def signup():
             password = request.form.get('password')
             confirmpassword = request.form.get('confirm')
             phone = request.form.get('phone')
-            address = request.form.get('address')
-            state = request.form.get('state')
-            city = request.form.get('city')
-            bd = request.form.get('bd')
-            rn = request.form.get('rn')
-            dc = request.form.get('dc')
-
+            Address = request.form.get('address')
+            State = request.form.get('state')
+            City = request.form.get('city')
+            BodyTemperature = request.form.get('bd')
+            RunnyNose = request.form.get('rn')
+            BodyAche = request.form.get('ba')
+            DifficultyinBreathing = request.form.get('db')
+            DryCough = request.form.get('dc')
             db = get_db()
             c = db.cursor()
-            c.execute('select email from testApi where email = %s', email)
+            c.execute('select phone from testApi where phone = %s', phone)
             account = c.fetchone()
             if account:
               flash('Email already exists please try again with another email!')
               return redirect(url_for('base'))
             else:
               if password == confirmpassword:
-                c.execute('insert into testApi (name,age,phone,username,password,Address,City,State,BodyTemperature) values (%s, %s, %s, md5(%s),%s,%s,%s)', (name, email, username, password,address,state,city ))
+                c.execute('insert into testApi (name,age,phone,username,password,Address,City,State,BodyTemperature,RunnyNose,BodyAche,DifficultyinBreathing,DryCough) values (%s, %s, %s, %s, md5(%s), %s, %s, %s, %s, %s, %s, %s, %s)', (name,age,phone,username,password,Address,City,State,BodyTemperature,RunnyNose,BodyAche,DifficultyinBreathing,DryCough ))
                 db.commit()
                 flash('Registered Successfully')
                 c.close()
@@ -103,14 +104,14 @@ def login():
             password = request.form['password']
             db = get_db()
             c = db.cursor()
-            c.execute('SELECT id, name, email, username, password from testApi WHERE username = %s and password = md5(%s)', (username, password))
+            c.execute('SELECT id, name, phone, username, password from testApi WHERE username = %s and password = md5(%s)', (username, password))
             account = c.fetchone()
 
             if account is not None:
                 session['logged_in'] = True
                 session['id'] = account[0]
                 session['name'] = account[1]
-                session['email'] = account[2]
+                session['phone'] = account[2]
                 session['username'] = account[3]
 
                 db.commit()
