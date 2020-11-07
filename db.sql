@@ -22,12 +22,7 @@ CREATE TABLE `testapi` (
    PRIMARY KEY (`id`))
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4
 
-CREATE TABLE 'infectionProb' (
-   'idProb' int,
-   'ProbabilityInfection' float,
-)
+CREATE TABLE `infectionProb` (
+   `idProb` int,
+   `ProbabilityInfection` float)
 
-ALTER TABLE infectionProb
-ADD FOREIGN KEY('idProb')
-REFERENCES testapi('id')
-ON DELETE SET NULL;
