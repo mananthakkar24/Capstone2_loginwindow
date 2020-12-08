@@ -35,6 +35,10 @@ def get_db():
                          db='test', charset='utf8mb4')
     return db
 
+@app.route('/main')
+def main():
+    return render_template('main.html')
+
 @app.route('/')
 def base():
     file_location = "https://api.covid19india.org/csv/latest/state_wise.csv"
