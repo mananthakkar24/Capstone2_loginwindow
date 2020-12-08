@@ -5,3 +5,7 @@ Jinja2==2.11.2
 MarkupSafe==1.1.1
 PyMySQL==0.10.1
 Werkzeug==1.0.1
+pymysql
+pandas
+numpy
+sklearn
