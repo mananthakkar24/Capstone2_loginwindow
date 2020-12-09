@@ -116,6 +116,13 @@ body {
   border-bottom-color: #fff;
 }
 
+/* input[type=radio] {
+  border: 0px;
+  width: 100%;
+  height: 2em;
+} */
+
+
 @media (min-width: 768px) {
   .masthead-brand {
     float: left;
