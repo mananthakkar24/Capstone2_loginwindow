@@ -29,6 +29,46 @@ app.debug = True
 
 app.secret_key = os.urandom(12)
 
+import requests
+import random
+
+@app.route('/otp_ver')
+def otp_ver(number = 9671144600):
+    otp = random.randint(1000,9999)
+
+    otp = str(otp)
+    number = str(number)
+    url = "https://www.fast2sms.com/dev/bulk"
+
+    querystring = {"authorization":"aNjoWx03jO",
+    "sender_id":"FSTSMS","message":"Your OTP is " + otp + " Thank you for using MAST ", "language":"english","route":"p","numbers":number}
+
+    headers = {
+        'cache-control': "no-cache"
+    }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+
+    print(response.text)
+
+    {
+        "return": True,
+        "request_id": "lwdtp7cjyqxvfe9",
+        "message": [
+            "Message sent successfully to NonDND numbers"
+        ]
+    }
+
+    {
+        "return": True,
+        "request_id": "vrc5yp9k4sfze6t",
+        "message": [
+            "Message sent successfully"
+        ]
+    }
+    return otp
+
+
 def tablelist():
     file_location = "https://api.covid19india.org/csv/latest/state_wise.csv"
     file_data = pd.read_csv(file_location)
@@ -98,6 +138,7 @@ def signup():
             BodyAche = request.form.get('ba')
             DifficultyinBreathing = request.form.get('db')
             DryCough = request.form.get('dc')
+            Otp = request.form.get('op')
             db = get_db()
             c = db.cursor()
             c.execute('select phone from testApi where phone = %s', phone)
@@ -107,6 +148,7 @@ def signup():
               return redirect(url_for('base'))
             else:
               if password == confirmpassword:
+                b = otp_ver(phone)
                 c.execute('insert into testApi (name,age,phone,username,password,Address,City,State,BodyTemperature,RunnyNose,BodyAche,DifficultyinBreathing,DryCough) values (%s, %s, %s, %s, md5(%s), %s, %s, %s, %s, %s, %s, %s, %s)', (name,age,phone,username,password,Address,City,State,BodyTemperature,RunnyNose,BodyAche,DifficultyinBreathing,DryCough ))
                 db.commit()
                 flash('Registered Successfully')

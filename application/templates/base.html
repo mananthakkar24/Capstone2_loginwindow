@@ -153,8 +153,17 @@
                 <input type="radio" class="form-control" id="dc2" name="dc" value="0"> 
                 <label for="dc2" class="text-dark col-form-label">No</label> -->
               </div>
+              <div class="form-group">
+                <label for="Otp" class="text-dark col-form-label">OTP:</label> <br>
+                <input type="text" class="form-control" id="op" name="op" required>
+              </div>
               </div>
               <div class="modal-footer">
+                <form>
+                  <a href=# id=test>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Get OTP</button>
+              </a>
+              </form>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Register</button>
                </form>
@@ -185,6 +194,7 @@
                   </div>
               </div>
               <div class="modal-footer">
+                
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Login</button>
                 </form>
@@ -214,5 +224,19 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </body>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+        $(function() {
+          $('a#test').on('click', function(e) {
+            e.preventDefault()
+            $.getJSON('/otp_ver',
+                function(data) {
+              //do nothing
+            });
+            return false;
+          });
+        });
+</script>
 
 </html>
