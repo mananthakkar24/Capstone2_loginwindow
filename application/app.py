@@ -17,7 +17,6 @@ import pickle
 file = open('model.pkl', 'rb')
 clf = pickle.load(file)
 file.close()
-
 # Fever,BodyPain,Age,RunnyNose,DiffBreathing,DryCough
 #inputFeatures = [102, 1, 22, 1, -1, 1]
 #infProb = clf.predict_proba([inputFeatures])[0][1]
@@ -30,17 +29,16 @@ app.debug = True
 
 app.secret_key = os.urandom(12)
 
-def get_db():
-    db = pymysql.connect(host='localhost', user='root', passwd='root@123',
-                         db='test', charset='utf8mb4')
-    return db
+def tablelist():
+    file_location = "https://api.covid19india.org/csv/latest/state_wise.csv"
+    file_data = pd.read_csv(file_location)
+    indexNames = file_data[file_data['State'] == "Total" ].index
+    file_data.drop(indexNames , inplace=True)
+    result = file_data['State'].values.tolist()
+    result = dict(zip(file_data.State,file_data.Active))
+    return result
 
-@app.route('/main')
-def main():
-    return render_template('main.html')
-
-@app.route('/')
-def base():
+def covid_info():
     file_location = "https://api.covid19india.org/csv/latest/state_wise.csv"
     file_data = pd.read_csv(file_location)
     a = file_data[0:1]
@@ -61,7 +59,23 @@ def base():
     'totalcount':totalcount,'recoveredcount':recoveredcount,
     'activecount':activecount,'deathcount':deathcount,'state_name':state_name, 
     'confirmed_val':confirmed_val, 'recovered_val':recoverd_val,'death_val':death_val}
-    return render_template('home.html',total=total)
+    return total
+
+def get_db():
+    db = pymysql.connect(host='localhost', user='root', passwd='root@123',
+                         db='test', charset='utf8mb4')
+    return db
+
+@app.route('/main')
+def main():
+    covid = covid_info()
+    result = tablelist()
+    return render_template('main.html',total = covid, result = result)
+
+@app.route('/')
+def base():
+    covid = covid_info()
+    return render_template('home.html',total=covid)
 
 # SignUp
 @app.route('/signup/', methods=['GET', 'POST'])

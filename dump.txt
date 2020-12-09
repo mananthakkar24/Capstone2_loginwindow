@@ -1,0 +1,65 @@
+<!--<style>
+
+  table {
+      margin-top: 10%;
+      margin-right: auto;
+      margin-left:auto;
+      border-collapse: collapse;
+      width: 90%;
+      }
+      
+      th, td {
+          font-size: 30px;
+          text-align: center;
+          padding: 3px;
+      }
+      th{
+          color: white;
+      }
+      tr:nth-child(odd) {background-color: rgb(185, 185, 236);}
+  </style>
+<body>
+<div class="container">
+<table>
+    <tr><td colspan="3">Status of Coronavirus Cases in India</td>
+    <td style="font-size: 12px;">Last Updated: {{total.lastupdate}} IST</td>
+<td rowspan="3" style="background-color: rgb(185, 185, 236);"><canvas id="myChart2"></canvas></td>
+</tr>
+
+<tr style="background-color: #7da0e0;">
+<th>Confirmed</th>
+<th>Active</th>
+<th>Recovered</th>
+<th>Death</th>
+</tr>
+<tr style="background-color: rgb(185, 185, 236);">
+<td>{{total.totalcount}}</td>
+<td>{{total.activecount}}</td>
+<td>{{total.recoveredcount}}</td>
+<td>{{total.deathcount}}</td>
+</tr>
+</table>
+</div>
+<canvas id="myChart" height="100"></canvas>
+<canvas id="line-chart" width="800" height="450"></canvas>
+<div id="chart"></div>-->
+
+<!-- <script>
+
+  var ctx = document.getElementById("myChart2").getContext('2d');
+  var myChart = new Chart(ctx, {
+  type: 'pie',
+  data: {
+  labels: ["Active", "Recovered", "Death"],
+  datasets: [{
+      backgroundColor: [
+      "#e74c3c",
+      "#2ecc71",
+      "black",   
+      ],
+      data:[{{total.activecount}}, {{total.recoveredcount}},{{total.deathcount}}]
+  }]
+  }
+  });
+  
+  </script> -->
