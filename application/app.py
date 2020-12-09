@@ -35,7 +35,7 @@ def tablelist():
     indexNames = file_data[file_data['State'] == "Total" ].index
     file_data.drop(indexNames , inplace=True)
     result = file_data['State'].values.tolist()
-    result = dict(zip(file_data.State,file_data.Active))
+    result = zip(file_data.State,file_data.Active,file_data.Confirmed,file_data.Recovered,file_data.Deaths)
     return result
 
 def covid_info():
