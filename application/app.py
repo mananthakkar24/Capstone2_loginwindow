@@ -107,7 +107,7 @@ def signup():
               return redirect(url_for('base'))
             else:
               if password == confirmpassword:
-                c.execute('insert into testApi (name,age,phone,username,password,Address,City,State,BodyTemperature,RunnyNose,BodyAche,DifficultyinBreathing,DryCough) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', (name,age,phone,username,password,Address,City,State,BodyTemperature,RunnyNose,BodyAche,DifficultyinBreathing,DryCough ))
+                c.execute('insert into testApi (name,age,phone,username,password,Address,City,State,BodyTemperature,RunnyNose,BodyAche,DifficultyinBreathing,DryCough) values (%s, %s, %s, %s, md5(%s), %s, %s, %s, %s, %s, %s, %s, %s)', (name,age,phone,username,password,Address,City,State,BodyTemperature,RunnyNose,BodyAche,DifficultyinBreathing,DryCough ))
                 db.commit()
                 flash('Registered Successfully')
                 c.close()
@@ -132,7 +132,7 @@ def login():
             password = request.form['password']
             db = get_db()
             c = db.cursor()
-            c.execute('SELECT * from testApi WHERE username = %s and password = %s', (username, password))
+            c.execute('SELECT * from testApi WHERE username = %s and password = md5(%s)', (username, password))
             account = c.fetchone()
 
             if account is not None:
