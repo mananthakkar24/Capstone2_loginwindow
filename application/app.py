@@ -20,6 +20,7 @@ from sklearn.preprocessing import StandardScaler
 from keras.models import model_from_yaml
 import urllib.request
 import ssl
+import datetime
 import pickle
 ssl._create_default_https_context = ssl._create_unverified_context
 response = urllib.request.urlopen('https://www.python.org')
@@ -153,7 +154,17 @@ def lstmPredictions():
         current_batch = np.append(current_batch[:,1:,:],[[lstm_pred]],axis=1)
         
     lstm_predictions_Active = scaler.inverse_transform(lstm_predictions)
-    return lstm_predictions_Active
+    l = []
+    for i in lstm_predictions_Active:
+        l.append(int(round(i[0],0)))
+    return l
+def get_days():
+    Current_Date = datetime.date.today()
+    days = []
+    for i in range(5):
+        NextDay_Date = datetime.date.today() + datetime.timedelta(days=i+1)
+        days.append(str(NextDay_Date))
+    return days
 
 def get_db():
     db = pymysql.connect(host='localhost', user='root', passwd='root@123',
@@ -165,7 +176,9 @@ def main():
     covid = covid_info()
     result = tablelist()
     lstm = lstmPredictions()
-    return render_template('main.html',total = covid, result = result, lstm = lstm)
+    gdate = get_days()
+    lstm_date = zip(lstm,gdate)
+    return render_template('main.html',total = covid, result = result, lstm_date = lstm_date)
 
 @app.route('/')
 def base():

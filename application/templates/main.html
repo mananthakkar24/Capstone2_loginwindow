@@ -86,7 +86,7 @@
     
     .measures{
         font-family: 'Poppins', sans-serif;
-        font-size: 30px;
+        font-size: 25px;
         margin-top: 2rem;
         color:#BD0FE1;
     }
@@ -155,6 +155,23 @@
                             </tr>
                         </tbody>
                     </table>
+                    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Predictions</th>
+                <th scope="col">Date</th>
+                </tr>
+        </thead>
+        <tbody>
+            
+                {% for p, d in lstm_date %}
+                <tr>
+                <th> {{ p }} </th>
+                <th> {{ d }} </th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
                 </div>
             </div>
         </div>
@@ -166,7 +183,7 @@
                 </div>
                 <div class="col-sm">
                     <div class="col-sm measures">Stay Home Stay Safe<br>
-                        Move out only if it is URGENT<br>
+                        Move out ONLY if it is URGENT<br>
                         Virus has taken the world by storm
                         <br>
                     </div>
@@ -184,13 +201,13 @@
             <hr style="background-color: white;">
 
             <div>
-                <h2 class="home-heading">News from your area</h2>
+                <h2 class="home-heading">News</h2>
             </div>
             <div class="container">
-                <div class="row shift">
+                <div class="row shift" style="margin-left:121px;">
                     <div class="col-sm">
                         <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="/img/1.jpg" alt="Card image cap" height="166px">
+                            <img class="card-img-top" src="{{url_for('static', filename='1.jpg')}}" alt="Card image cap" height="166px">
                             <div class="card-body">
                                 <h5 class="card-title">Karnataka Bengaluru Coronavirus Live...</h5>
                                 <p class="card-text">The Indian Express</p>
@@ -201,9 +218,9 @@
                     </div>
                     <div class="col-sm">
                         <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="img/2.jpg" alt="Card image cap" height="166px">
+                            <img class="card-img-top" src="{{url_for('static', filename='2.jpg')}}" alt="Card image cap" height="166px">
                             <div class="card-body">
-                                <h5 class="card-title">Lorem Ipsum is simply dummy text of the...</h5>
+                                <h5 class="card-title">New Cases in Bangalore</h5>
                                 <p class="card-text">The Hindu</p>
                                 <a href="https://bangaloremirror.indiatimes.com/bangalore/others/196-new-cases-in-bengaluru/articleshow/76499598.cms"
                                     class="btn btn-primary">View News</a>
@@ -212,7 +229,7 @@
                     </div>
                     <div class="col-sm">
                         <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="img/3.jpg" alt="Card image cap" height="166px">
+                            <img class="card-img-top" src="{{url_for('static', filename='3.jpg')}}" alt="Card image cap" height="166px">
                             <div class="card-body">
                                 <h5 class="card-title">Tamil Nadu Corona Case update...</h5>
                                 <p class="card-text">Chennai Times</p>
@@ -294,13 +311,13 @@
                     </div>
                     <div class="col-sm">
                         <div class="measure-head">What is COVID-19?<br></div>
-                        <p style="text-align: justify; color: white;"> Coronavirus disease (COVID-19) is an infectious
+                        <p style="text-align: justify; color: white; font-size:15px;"> Coronavirus disease (COVID-19) is an infectious
                             disease caused
                             by a newly discovered coronavirus.</p>
-                        <p style="text-align: justify; color: white;">Most common symptoms:<br>
-                            • fever<br>
-                            • dry cough<br>
-                            • tiredness</p>
+                        <p style="text-align: justify; color: white; font-size:15px;">Most common symptoms:<br>
+                            • Fever<br>
+                            • Dry Cough<br>
+                            • Tiredness</p>
 
                     </div>
                 </div>
@@ -310,7 +327,7 @@
                     </div>
                     <div class="col-sm">
                         <div class="measure-head">Prevention<br></div>
-                        <p style="text-align: justify; color: white;"> • Clean your hands often. Use soap and water, or
+                        <p style="text-align: justify; color: white; font-size:15px;"> • Clean your hands often. Use soap and water, or
                             an
                             alcohol-based hand rub.<br>
                             • Maintain social distancing<br>
@@ -328,21 +345,7 @@
         </div>
     </section>
 
-    <table class="table table-dark">
-        <thead>
-            <tr>
-                <th scope="col">Prediction for Upcoming Days</th>
-                </tr>
-        </thead>
-        <tbody>
-            
-                {% for d in lstm %}
-                <tr>
-                <th> {{ d }} </th>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    
 
     <script src="https://use.fontawesome.com/releases/v5.13.1/js/all.js" data-auto-replace-svg="nest"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
