@@ -18,16 +18,12 @@ from keras.layers import Dropout
 from keras.layers import LSTM 
 from sklearn.preprocessing import StandardScaler
 from keras.models import model_from_yaml
-
-
 import urllib.request
 import ssl
-
+import pickle
 ssl._create_default_https_context = ssl._create_unverified_context
 response = urllib.request.urlopen('https://www.python.org')
 #print(response.read().decode('utf-8'))
-
-import pickle
 
 file = open('model.pkl', 'rb')
 clf = pickle.load(file)
@@ -168,7 +164,8 @@ def get_db():
 def main():
     covid = covid_info()
     result = tablelist()
-    return render_template('main.html',total = covid, result = result)
+    lstm = lstmPredictions()
+    return render_template('main.html',total = covid, result = result, lstm = lstm)
 
 @app.route('/')
 def base():
