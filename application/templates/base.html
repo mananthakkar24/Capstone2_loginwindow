@@ -13,6 +13,7 @@
   <link href="/static/index.css" rel="stylesheet">
 </head>
 
+
 {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
             {% if (message.startswith("Logged") or message.startswith("Registered") ) %}
             <div class="alert alert-success alert-dismissible" role="alert">
@@ -203,17 +204,22 @@
             </div>
           </div>
         </div>
-
+        
         {% block content %}
         {% endblock %}
 
         <div class="mastfoot">
           <div class="inner">
             <p>
-              CoviFinder by MAST
+            
+            CoviFinder by MAST
+            
             </p>
+            
           </div>
+          <img src="{{url_for('static', filename='bg.png')}}" alt="corona-person" height="350" width="auto">
         </div>
+        
 
       </div>
 
